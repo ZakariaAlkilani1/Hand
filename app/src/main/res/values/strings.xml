@@ -1,1 +1,6 @@
-<resources></resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add">add</string>
+    <string name="last_game">Last game</string>
+    <string name="Score">Score</string>
+</resources>
