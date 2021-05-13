@@ -4,19 +4,30 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.widget.Toast
 import java.security.AccessControlContext
 
-val DATABASENAME="MDB"
-val TABLE_NAME ="Players"
-val COL_NAME="name"
-val COL_SCORE="Score"
-val COL_ID="id"
-class PlayerDataBase(var context: Context): SQLiteOpenHelper(context, DATABASENAME,null,1){
+//val DATABASENAME="MDB"
+//val TABLE_NAME ="Players"
+//val COL_NAME="name"
+//val COL_SCORE="Score"
+//val COL_ID="id"
+class PlayerDataBase(var context: Context): SQLiteOpenHelper(context, "DATAABSENAME",null,1){
+    companion object {
+        val TABLE_NAME:String  = "Players"
+        val ID_COLUMN:String  = "_id"
+        val NAME_COLUMN:String  = "name"
+        val SCORE_COLUMN:String  = "Score"
+
+
+    }
+
+    private  val CreateTable =
+            "CREATE TABLE $TABLE_NAME ( $ID_COLUMN INTEGER PRIMARY KEY AUTOINCREMENT, $NAME_COLUMN TEXT NOT NULL)"
+
+
     override fun onCreate(db: SQLiteDatabase?) {
-        val CreateTable="CREATE TABLE" + TABLE_NAME +
-                COL_ID +"INTEGER PRIMARY KEY AUTOINCREMENT"+
-                COL_NAME +"TEXT NOT NULL"+
-                COL_SCORE +"INT NOT NULL"
+
         db?.execSQL(CreateTable)
     }
 
@@ -26,10 +37,13 @@ class PlayerDataBase(var context: Context): SQLiteOpenHelper(context, DATABASENA
     fun insertData(Player : Player){
         val db=this.writableDatabase
         var SCo=ContentValues()
-        SCo.put(COL_NAME,Player.name)
-        SCo.put(COL_SCORE,Player.score)
+        SCo.put(NAME_COLUMN,Player.name)
+//        SCo.put(COL_SCORE,Player.score)
         var result = db.insert(TABLE_NAME,null,SCo)
-    }
+        if(result == -1.toLong())
+//            Toast.makeText(context,"Failed", Toast.LENGTH_SHORT).show()
+        else
+            Toast.makeText(context,"Success", Toast.LENGTH_SHORT).show()    }
     fun readData():MutableList<Player>{
         var list : MutableList<Player> = ArrayList()
         var db = this.readableDatabase

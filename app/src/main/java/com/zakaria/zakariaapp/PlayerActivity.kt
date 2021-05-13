@@ -13,11 +13,18 @@ class PlayerActivity : AppCompatActivity() {
         binding= ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val player=binding.playerName.text
+        val context = this
+        var db = PlayerDataBase(context)
+
         binding.addplayer.setOnClickListener{
-                Toast.makeText(this,"${player}",Toast.LENGTH_SHORT).show()
+        if (player.toString().length >= 2){
+            var Plr=Player(player.toString())
+            db.insertData(Plr)
+        }else{
+            Toast.makeText(context,"Please Fill All Data's",Toast.LENGTH_SHORT).show()
+
         }
-
-
+        }
     }
 }
 
