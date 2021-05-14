@@ -17,31 +17,38 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/_ID"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="ID" />
+
+        <TextView
+            android:id="@+id/NAME"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="NAME" />
 
         <EditText
-            android:id="@+id/textView3"
+            android:id="@+id/SCORE"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:hint="@string/Score" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/LSCORE"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="LSCORE" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/TSCORE"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="TSCORE" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

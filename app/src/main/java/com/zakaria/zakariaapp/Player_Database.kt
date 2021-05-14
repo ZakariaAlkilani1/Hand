@@ -2,10 +2,10 @@ package com.zakaria.zakariaapp
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
-import java.security.AccessControlContext
 
 //val DATABASENAME="MDB"
 //val TABLE_NAME ="Players"
@@ -36,10 +36,10 @@ class PlayerDataBase(var context: Context): SQLiteOpenHelper(context, "DATAABSEN
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         TODO("Not yet implemented")
     }
-    fun insertData(Player : Player){
+    fun insertData(Player: String){
         val db=this.writableDatabase
         var SCo=ContentValues()
-        SCo.put(NAME_COLUMN,Player.name)
+        SCo.put(NAME_COLUMN,Player)
 //        SCo.put(COL_SCORE,Player.score)
         var result = db.insert(TABLE_NAME,null,SCo)
         if(result == -1.toLong())
@@ -55,5 +55,9 @@ class PlayerDataBase(var context: Context): SQLiteOpenHelper(context, "DATAABSEN
         result.close()
         db.close()
     return list
+    }
+    fun getPlayer(): Cursor? {
+        val db = this.readableDatabase
+        return  db.query(TABLE_NAME,null,null,null,null,null,null)
     }
 }
