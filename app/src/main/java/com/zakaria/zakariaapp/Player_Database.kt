@@ -18,12 +18,14 @@ class PlayerDataBase(var context: Context): SQLiteOpenHelper(context, "DATAABSEN
         val ID_COLUMN:String  = "_id"
         val NAME_COLUMN:String  = "name"
         val SCORE_COLUMN:String  = "Score"
+        val LSCORE_COLUMN:String  = "LScore"
+        val TSCORE_COLUMN:String  = "TScore"
 
 
     }
 
     private  val CreateTable =
-            "CREATE TABLE $TABLE_NAME ( $ID_COLUMN INTEGER PRIMARY KEY AUTOINCREMENT, $NAME_COLUMN TEXT NOT NULL)"
+            "CREATE TABLE $TABLE_NAME ( $ID_COLUMN INTEGER PRIMARY KEY AUTOINCREMENT, $NAME_COLUMN TEXT NOT NULL , $SCORE_COLUMN INTEGER ,$LSCORE_COLUMN INTEGER ,$TSCORE_COLUMN INTEGER)"
 
 
     override fun onCreate(db: SQLiteDatabase?) {
