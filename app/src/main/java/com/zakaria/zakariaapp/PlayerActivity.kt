@@ -11,37 +11,44 @@ class PlayerActivity : AppCompatActivity() {
     lateinit var binding: ActivityPlayerBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityPlayerBinding.inflate(layoutInflater)
+        binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val player=binding.
-        playerName.text
+        val player = binding.playerName.text
         val context = this
         var db = PlayerDataBase(context)
         PlayerData = PlayerDataBase(applicationContext)
         customCursorAdapter();
 
-        binding.addplayer.setOnClickListener{
-        if (player.toString().length >= 2){
-            SaveDataToDatabase()
-        }else{
-            Toast.makeText(context,"Please Fill All Data's",Toast.LENGTH_SHORT).show()
+        binding.addplayer.setOnClickListener {
+            if (player.toString().length >= 2) {
+                SaveDataToDatabase()
+                clearText()
+            } else {
+                Toast.makeText(context, "Please Fill All Data's", Toast.LENGTH_SHORT).show()
 
-        }
+            }
         }
     }
-    fun customCursorAdapter()
-    {
-        PlayerCursorAdapter = ListAdapter(applicationContext,PlayerData.getPlayer())
-        binding.PLV.adapter= PlayerCursorAdapter
+
+    fun customCursorAdapter() {
+        PlayerCursorAdapter = ListAdapter(applicationContext, PlayerData.getPlayer())
+        binding.PLV.adapter = PlayerCursorAdapter
     }
+
     private fun SaveDataToDatabase() {
+//        var dlt =PlayerData.deletePlayer()
         val result = PlayerData.insertData(
-                binding.playerName.text.toString(),
-                )
+                binding.playerName.text.toString(), 0, 0)
+
         binding.apply {
-            // get the data again from the database
             PlayerCursorAdapter.changeCursor(PlayerData.getPlayer())
             PlayerCursorAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun clearText() {
+        binding.apply {
+            binding.playerName.setText("")
         }
     }
 }

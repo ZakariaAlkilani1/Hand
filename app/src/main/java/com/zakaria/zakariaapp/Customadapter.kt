@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 
 class ListAdapter(context: Context, cursor: Cursor?): CursorAdapter(context,cursor,0) {
+    private lateinit var PlayerData: PlayerDataBase
     private class ViewHolder {
         var textViewID: TextView? = null
         var textViewName: TextView? = null
@@ -41,9 +42,9 @@ class ListAdapter(context: Context, cursor: Cursor?): CursorAdapter(context,curs
         viewHolder.textViewLSCORE?.text = cursor?.getString(cursor.getColumnIndex(PlayerDataBase.LSCORE_COLUMN))
         viewHolder.textViewTSCORE?.text = cursor?.getString(cursor.getColumnIndex(PlayerDataBase.TSCORE_COLUMN))
 
-        viewHolder.textViewSCORE?.setOnClickListener{
+        viewHolder.textViewName?.setOnClickListener{
             val btn = it as TextView
-            Toast.makeText(context,"Button clicked ${btn.text.toString()}", Toast.LENGTH_SHORT).show()
+            this.PlayerData.deletePlayer()
         }
 
     }
