@@ -71,4 +71,36 @@ class PlayerDataBase(var context: Context): SQLiteOpenHelper(context, "DATAABSEN
         db.delete(TABLE_NAME,null,null)
         db.close()
     }
+
+    fun updateLastGame(score:Int , id:Int) {
+        val db = writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(LSCORE_COLUMN, score)
+        val WhereArgs = arrayOf("$id")
+        val updatedRows = db.update(TABLE_NAME,contentValues, ID_COLUMN+" =?" ,WhereArgs)
+
+    }
+
+    fun updateTotalGame(totalscores: Int , id:Int) {
+        val db = writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(TSCORE_COLUMN, totalscores)
+        val whereArgs = arrayOf("$id")
+        val updatedRows = db.update(TABLE_NAME,contentValues, ID_COLUMN+" =?" ,whereArgs)
+
+    }
+
+    fun getTotalGameScores(sizeOfList:Int): IntArray{
+        var x = IntArray(sizeOfList)
+        val db =  writableDatabase
+        val columns = arrayOf(LSCORE_COLUMN)
+        val cursor: Cursor = db.query(TABLE_NAME,columns,null,null,null,null,null)
+        var i =0
+        while (cursor.moveToNext()){
+            val index1 =  cursor.getColumnIndex(LSCORE_COLUMN)
+            x[i] = cursor.getInt(index1)
+            i++
+        }
+        return x
+    }
 }

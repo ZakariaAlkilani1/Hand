@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.*
 
 class ListAdapter(context: Context, cursor: Cursor?): CursorAdapter(context,cursor,0) {
-    private lateinit var PlayerData: PlayerDataBase
     private class ViewHolder {
         var textViewID: TextView? = null
         var textViewName: TextView? = null
@@ -44,9 +43,24 @@ class ListAdapter(context: Context, cursor: Cursor?): CursorAdapter(context,curs
 
         viewHolder.textViewName?.setOnClickListener{
             val btn = it as TextView
-            this.PlayerData.deletePlayer()
         }
 
+    }
+
+    fun getScoreFromEditText(view: View?):String{
+        val viewHolder = view!!.tag as ViewHolder
+        val edT = viewHolder.textViewSCORE?.text.toString()
+        return edT
+    }
+
+    fun clearScoresFromEditText(view: View?){
+        val viewHolder = view!!.tag as ViewHolder
+        viewHolder.textViewSCORE?.text = ""
+    }
+
+    fun getTotalGames(view:View?):String{
+        val viewHolder = view!!.tag as ViewHolder
+        return viewHolder.textViewTSCORE?.text.toString()
     }
 
 }
