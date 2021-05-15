@@ -2,6 +2,7 @@ package com.zakaria.zakariaapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.get
 import androidx.core.view.size
@@ -11,19 +12,18 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var PlayerData: PlayerDataBase
     private lateinit var PlayerCursorAdapter: ListAdapter
     lateinit var binding: ActivityPlayerBinding
-    private var history= mutableListOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val player = binding.playerName.text
         val context = this
-        var db = PlayerDataBase(context)
         PlayerData = PlayerDataBase(applicationContext)
         customCursorAdapter();
 
 
         binding.addplayer.setOnClickListener {
+
             if (player.toString().length >= 2) {
                 SaveDataToDatabase()
                 clearText()
@@ -33,36 +33,44 @@ class PlayerActivity : AppCompatActivity() {
             }
         }
         binding.collect.setOnClickListener {
-            var arrHoldingScores = IntArray(binding.PLV.size)
-            var isAnyScoreNull = false
-            for (i in 0 until binding.PLV.size){
+            var holdingScores = IntArray(binding.PLV.size)
+            var NullScore = false
+            for (i in 0 until  binding.PLV.size){
                 if(PlayerCursorAdapter.getScoreFromEditText(binding.PLV[i]).isNotEmpty())
-                    arrHoldingScores[i] = PlayerCursorAdapter.getScoreFromEditText(binding.PLV[i]).toInt()
+                    holdingScores[i] = PlayerCursorAdapter.getScoreFromEditText(binding.PLV[i]).toInt()
                 else
-                    isAnyScoreNull = true;
+                    NullScore = true;
             }
-            if(!isAnyScoreNull){    // if all players' scores are inserted
+            if(!NullScore){    // if all players' scores are inserted
                 //get the total games' scores from the data base
-                var lastTotalGameScores = PlayerData.getTotalGameScores(binding.PLV.size)
+                var lastScores = PlayerData.getTotalGameScores(binding.PLV.size)
 
                 //update all players' scores, last games and total scores
-                for (i in 0 until binding.PLV.size) {
+                for (i in 0 until  binding.PLV.size) {
                     //update data for the player with index i
-                    PlayerData.updateLastGame(arrHoldingScores[i], i + 1)
-                    PlayerData.updateTotalGame(arrHoldingScores[i] + lastTotalGameScores[i], i + 1)
+                    PlayerData.updateLastGame(holdingScores[i], i + 1)
+                    PlayerData.updateTotalGame(holdingScores[i] + lastScores[i], i + 1)
                     //clear the score value from the edit text
                     PlayerCursorAdapter.clearScoresFromEditText(binding.PLV[i])
+                    notifyDataChange()
                 }
-                PlayerCursorAdapter.notifyDataSetChanged()
+//                notifyDataChange()
             }else
-                Toast.makeText(this,"some scores are null !",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Please Fill All Data's !",Toast.LENGTH_LONG).show()
         }
+//        binding.Delete.setOnClickListener {
+//            var data = PlayerData.readData()
+//            var result=findViewById<TextView>(R.id.NAMET)
+//            result.text = ""
+//            for (i in 0..(data.size - 1)) {
+//                result.append(data.get(i).id.toString() + " " + data.get(i).name+ " " + data.get(i).Lscore+ " " + data.get(i).Tscore )
+//        }}
         binding.Delete.setOnClickListener {
-            PlayerData.deletePlayer()
-            PlayerCursorAdapter.changeCursor(PlayerData.getPlayer())
-            PlayerCursorAdapter.notifyDataSetChanged()
+            DeletePlayer()
         }
+
     }
+
 
     fun customCursorAdapter() {
         PlayerCursorAdapter = ListAdapter(applicationContext, PlayerData.getPlayer())
@@ -70,8 +78,7 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun SaveDataToDatabase() {
-//        var dlt =PlayerData.deletePlayer()
-        val result = PlayerData.insertData(
+                 PlayerData.insertData(
                 binding.playerName.text.toString(), 0, 0)
 
         binding.apply {
@@ -79,12 +86,26 @@ class PlayerActivity : AppCompatActivity() {
             PlayerCursorAdapter.notifyDataSetChanged()
         }
     }
-
+    private fun notifyDataChange() {
+        PlayerData.sortPlayersDecreasing()
+        PlayerCursorAdapter.changeCursor(PlayerData.getPlayer())
+        PlayerCursorAdapter.notifyDataSetChanged()
+    }
     private fun clearText() {
         binding.apply {
             binding.playerName.setText("")
         }
     }
+    private fun DeletePlayer(){
+        PlayerData.deletePlayer()
+        PlayerCursorAdapter.changeCursor(PlayerData.getPlayer())
+        PlayerCursorAdapter.notifyDataSetChanged()
+    }
+//    private fun ReadPlayer(){
+//        PlayerData.readData()
+//        PlayerCursorAdapter.changeCursor(PlayerData.getPlayer())
+//        PlayerCursorAdapter.notifyDataSetChanged()
+//    }
 }
 
 
