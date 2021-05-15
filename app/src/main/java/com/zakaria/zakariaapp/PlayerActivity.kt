@@ -28,6 +28,11 @@ class PlayerActivity : AppCompatActivity() {
 
             }
         }
+        binding.Delete.setOnClickListener {
+            PlayerData.deletePlayer()
+            PlayerCursorAdapter.changeCursor(PlayerData.getPlayer())
+            PlayerCursorAdapter.notifyDataSetChanged()
+        }
     }
 
     fun customCursorAdapter() {

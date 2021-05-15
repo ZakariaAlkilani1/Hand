@@ -4,4 +4,6 @@
     <string name="last_game">Last game</string>
     <string name="Score">Score</string>
     <string name="NEWPlayer">New Player</string>
+    <string name="delete">Delete Players</string>
+    <string name="Collect">Calculete</string>
 </resources>

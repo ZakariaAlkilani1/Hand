@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="NEWPlayer">New Player</string>
+    <string name="delete">Delete Players</string>
+    <string name="Collect">Calculete</string>
 </resources>

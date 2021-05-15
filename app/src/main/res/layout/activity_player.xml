@@ -30,7 +30,7 @@
         android:layout_margin="@dimen/margin"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal"
-        android:weightSum="2"
+        android:weightSum="3"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,18 +38,25 @@
 
         <EditText
             android:id="@+id/playerName"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
+            android:layout_weight="1.5"
             android:hint="@string/NEWPlayer"
             android:autofillHints="" />
 
         <Button
-            android:id="@+id/collect"
-            android:layout_width="match_parent"
+            android:id="@+id/Delete"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:text="Button" />
+            android:layout_weight="0.75"
+            android:text="@string/delete" />
+
+        <Button
+            android:id="@+id/collect"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.75"
+            android:text="@string/Collect" />
     </LinearLayout>
 
     <LinearLayout
