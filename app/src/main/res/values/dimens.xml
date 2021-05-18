@@ -6,4 +6,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="list_hieght">66dp</dimen>
     <dimen name="body_text_size">20sp</dimen>
+    <dimen name="SHsize">30sp</dimen>
+    <dimen name="but_text_size">10sp</dimen>
 </resources>

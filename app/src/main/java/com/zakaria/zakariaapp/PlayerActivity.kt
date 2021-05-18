@@ -1,7 +1,9 @@
 package com.zakaria.zakariaapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.get
@@ -9,6 +11,7 @@ import androidx.core.view.size
 import com.zakaria.zakariaapp.databinding.ActivityPlayerBinding
 
 class PlayerActivity : AppCompatActivity() {
+
     private lateinit var PlayerData: PlayerDataBase
     private lateinit var PlayerCursorAdapter: ListAdapter
     lateinit var binding: ActivityPlayerBinding
@@ -58,13 +61,23 @@ class PlayerActivity : AppCompatActivity() {
             }else
                 Toast.makeText(this,"Please Fill All Data's !",Toast.LENGTH_LONG).show()
         }
-//        binding.Delete.setOnClickListener {
-//            var data = PlayerData.readData()
-//            var result=findViewById<TextView>(R.id.NAMET)
-//            result.text = ""
-//            for (i in 0..(data.size - 1)) {
-//                result.append(data.get(i).id.toString() + " " + data.get(i).name+ " " + data.get(i).Lscore+ " " + data.get(i).Tscore )
-//        }}
+        binding.history.setOnClickListener {
+            for (i in 0..(PlayerData.readData().size - 1)) {
+                var id = PlayerData.readData().get(i).id.toString()
+                var name = PlayerData.readData().get(i).name
+                var tscore = PlayerData.readData().get(i).Tscore.toString()
+                var lscore = PlayerData.readData().get(i).Lscore.toString()
+
+
+                var intent = Intent(this, history::class.java)
+                intent.putExtra("id", id)
+                intent.putExtra("name", name)
+                intent.putExtra("tscore", tscore)
+                intent.putExtra("lscore", lscore)
+                startActivity(intent)
+
+            }
+        }
         binding.Delete.setOnClickListener {
             DeletePlayer()
         }

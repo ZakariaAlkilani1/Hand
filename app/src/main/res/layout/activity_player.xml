@@ -40,22 +40,32 @@
             android:id="@+id/playerName"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
+            android:layout_weight="1.2"
             android:hint="@string/NEWPlayer"
             android:autofillHints="" />
 
         <Button
-            android:id="@+id/Delete"
+            android:id="@+id/history"
+            android:textSize="@dimen/but_text_size"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.75"
+            android:layout_weight="0.6"
+            android:text="@string/His" />
+
+        <Button
+            android:id="@+id/Delete"
+            android:textSize="@dimen/but_text_size"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
             android:text="@string/delete" />
 
         <Button
             android:id="@+id/collect"
+            android:textSize="@dimen/but_text_size"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.75"
+            android:layout_weight="0.6"
             android:text="@string/Collect" />
     </LinearLayout>
 
