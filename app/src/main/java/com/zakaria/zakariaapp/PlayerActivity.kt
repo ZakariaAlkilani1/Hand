@@ -100,7 +100,7 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
     private fun notifyDataChange() {
-        PlayerData.sortPlayersDecreasing()
+//        PlayerData.sortPlayersDecreasing()
         PlayerCursorAdapter.changeCursor(PlayerData.getPlayer())
         PlayerCursorAdapter.notifyDataSetChanged()
     }

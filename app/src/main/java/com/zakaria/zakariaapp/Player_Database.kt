@@ -77,7 +77,7 @@ if(result.moveToFirst()){
     }
     fun getPlayer(): Cursor? {
         val db = this.readableDatabase
-        return  db.query(TABLE_NAME,null,null,null,null,null,null)
+        return  db.query(TABLE_NAME,null,null,null,null,null, "$TSCORE_COLUMN DESC")
     }
     fun deletePlayer(){
         var db=this.writableDatabase
@@ -108,7 +108,7 @@ if(result.moveToFirst()){
         var x = IntArray(sizeOfList)
         val db =  writableDatabase
         val columns = arrayOf(TSCORE_COLUMN)
-        val cursor: Cursor = db.query(TABLE_NAME,columns,null,null,null,null,null)
+        val cursor: Cursor = db.query(TABLE_NAME,columns,null,null,null,null, TSCORE_COLUMN)
         var i =0
         while (cursor.moveToNext()){
             val index1 =  cursor.getColumnIndex(TSCORE_COLUMN)
